@@ -1,0 +1,81 @@
+1. Program execution starts from EncapsulationHiding2.main().
+
+2. Object is created:
+      EncapsulationHiding1 obj = new EncapsulationHiding1();
+
+3. Memory is allocated for:
+      name
+      age
+      course
+      duration
+
+4. Setter methods are called:
+      setName("Bhaskar")
+      setAge(25)
+      setCourse("Java")
+      setDuration(7.5")
+
+   These methods store values into the private variables.
+
+5. Getter methods are called:
+      getName()
+      getAge()
+      getCourse()
+      getDuration()
+
+   These methods return the stored values.
+
+6. Returned values are printed on the console.
+
+------------------------------------------------------------------
+Important Interview Points
+--------------------------
+
+// Data Hiding:
+// ------------
+// Making variables private so they cannot be accessed directly
+// from outside the class.
+
+// Encapsulation:
+// --------------
+// Binding variables and methods into a single unit (class)
+// and providing controlled access using getters and setters.
+
+// Setter Method:
+// --------------
+// Used to assign or update the value of a private variable.
+
+// Getter Method:
+// --------------
+// Used to retrieve the value of a private variable.
+
+// Why use getters and setters?
+// ----------------------------
+// 1. Protects data.
+// 2. Allows validation.
+// 3. Controls read/write access.
+// 4. Improves maintainability.
+// 5. Follows Object-Oriented Programming principles.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

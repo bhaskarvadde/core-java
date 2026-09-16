@@ -1,0 +1,231 @@
+JAVA COLLECTIONS FRAMEWORK
+│
+├── 1. Iterable<E>
+│      │
+│      └── Collection<E>
+│             │
+│             ├── 2. List<E>
+│             │      │
+│             │      ├── ArrayList<E>
+│             │      │
+│             │      ├── LinkedList<E>
+│             │      │      │
+│             │      │      └── Deque<E>
+│             │      │             │
+│             │      │             └── (LinkedList implements Deque)
+│             │      │
+│             │      └── Vector<E>
+│             │             │
+│             │             └── Stack<E>
+│             │
+│             ├── 3. Set<E>
+│             │      │
+│             │      ├── HashSet<E>
+│             │      │      │
+│             │      │      └── LinkedHashSet<E>
+│             │      │
+│             │      └── SortedSet<E>
+│             │             │
+│             │             └── NavigableSet<E>
+│             │                    │
+│             │                    └── TreeSet<E>
+│             │
+│             └── 4. Queue<E>
+│                    │
+│                    ├── PriorityQueue<E>
+│                    │
+│                    └── Deque<E>
+│                           │
+│                           └── ArrayDeque<E>
+│
+│
+└── 5. Map<K,V>        ← NOT a child of Collection
+       │
+       ├── HashMap<K,V>
+       │      │
+       │      └── LinkedHashMap<K,V>
+       │
+       ├── SortedMap<K,V>
+       │      │
+       │      └── NavigableMap<K,V>
+       │             │
+       │             └── TreeMap<K,V>
+       │
+       ├── Hashtable<K,V>
+       │      │
+       │      └── Properties
+       │
+       └── WeakHashMap<K,V>
+       
+
+       -----------------------------------------------------------------------------
+                                      OR
+       -----------------------------------------------------------------------------
+       
+                    Collection
+                   /    |     \
+                List    Set    Queue
+                  |      |       |
+          +-------+      |      Deque
+          |              |       |
+     ArrayList            |   +---+---+
+     LinkedList            |   |       |
+     Vector                | ArrayDeque LinkedList
+       |                  |
+     Stack          +-----+-----+
+                    |           |
+                HashSet     SortedSet
+                    |           |
+             LinkedHashSet  NavigableSet
+                                 |
+                              TreeSet
+
+
+                      Map
+                       |
+          +------------+-------------+
+          |            |             |
+       HashMap     SortedMap     Hashtable
+          |            |             |
+   LinkedHashMap  NavigableMap   Properties
+                       |
+                    TreeMap
+
+                  Other Map
+                     |
+                WeakHashMap
+                
+                --------------------------------------------------
+                                   VC
+                --------------------------------------------------
+JJAVA COLLECTIONS FRAMEWORK
+│
+├── 1. CORE COLLECTION HIERARCHY
+│   │
+│   ├── Iterable<E>
+│   │     │
+│   │     └── Collection<E>
+│   │           │
+│   │           ├── List<E>
+│   │           │   ├── ArrayList
+│   │           │   ├── LinkedList
+│   │           │   └── Vector
+│   │           │       └── Stack
+│   │           │
+│   │           ├── Set<E>
+│   │           │   ├── HashSet
+│   │           │   │   └── LinkedHashSet
+│   │           │   │
+│   │           │   └── SortedSet<E>
+│   │           │       └── NavigableSet<E>
+│   │           │           └── TreeSet
+│   │           │
+│   │           └── Queue<E>
+│   │               ├── PriorityQueue
+│   │               │
+│   │               └── Deque<E>
+│   │                   ├── ArrayDeque
+│   │                   └── LinkedList
+│   │
+│   │
+│   └── 2. MAP HIERARCHY
+│         │
+│         └── Map<K,V>          ← NOT part of Collection
+│               │
+│               ├── HashMap
+│               │   └── LinkedHashMap
+│               │
+│               ├── SortedMap<K,V>
+│               │   └── NavigableMap<K,V>
+│               │       └── TreeMap
+│               │
+│               ├── Hashtable
+│               │   └── Properties
+│               │
+│               └── WeakHashMap
+│
+│
+├── 3. CURSOR / TRAVERSAL INTERFACES
+│   │
+│   ├── Enumeration<E>
+│   │   └── Legacy cursor
+│   │
+│   ├── Iterator<E>
+│   │   └── General-purpose cursor
+│   │
+│   └── ListIterator<E>
+│       └── extends Iterator
+│
+│
+├── 4. COMPARISON / SORTING INTERFACES
+│   │
+│   ├── Comparable<T>
+│   │   ├── Package: java.lang
+│   │   ├── Method: compareTo()
+│   │   └── Natural ordering
+│   │
+│   └── Comparator<T>
+│       ├── Package: java.util
+│       ├── Method: compare()
+│       └── Custom ordering
+│
+│
+└── 5. MARKER / SUPPORTING INTERFACES
+    │
+    ├── Serializable
+    │   └── Object serialization
+    │
+    ├── Cloneable
+    │   └── Object cloning
+    │
+    └── RandomAccess
+        └── Indicates fast random/index-based access
+                
+                
+--------------------
+Simple Decision Rule
+--------------------
+
+
+                 WHAT DO I NEED?
+                        │
+        ┌───────────────┼────────────────┐
+        │               │                │
+   Collection         Key-Value       Special
+        │               │             Requirement
+        │               │
+   ┌────┼────┐          │
+   │    │    │          │
+  List Set Queue        Map
+   │    │    │          │
+   │    │    │          │
+   │    │    │       ┌──┼──────┐
+   │    │    │       │  │      │
+   │    │    │    HashMap TreeMap LinkedHashMap
+   │    │    │
+   │    │    ├── PriorityQueue
+   │    │    │
+   │    │    └── Deque
+   │    │          │
+   │    │          ├── ArrayDeque
+   │    │          └── LinkedList
+   │    │
+   │    ├── Need unique elements?
+   │    │       │
+   │    │       ├── No guaranteed order → HashSet
+   │    │       ├── Insertion order → LinkedHashSet
+   │    │       └── Sorted order → TreeSet
+   │    │
+   │    └──
+   │
+   ├── Need duplicates + index?
+   │       │
+   │       └── ArrayList
+   │
+   ├── Need frequent insertion/removal at ends?
+   │       │
+   │       └── LinkedList / ArrayDeque
+   │
+   └── Need stack behavior?
+           │
+           └── ArrayDeque

@@ -1,0 +1,533 @@
+Step 1: JVM starts execution
+
+Execution always begins from:
+
+public class FullyEncapsulation2 {
+
+    public static void main(String[] args) {
+Step 2: Create e1
+FullyEncapsulation1 e1 = new FullyEncapsulation1();
+What happens internally?
+1. Memory is allocated
+
+An object is created in the heap.
+
+Initially:
+
+ename  = null
+role   = null
+salary = 0.0
+
+because these are the default values for instance variables.
+
+2. No-Argument Constructor executes
+public FullyEncapsulation1() {
+    System.out.println("No Argument Constructor Called");
+}
+
+Output:
+
+No Argument Constructor Called
+
+Now the object still contains
+
+ename  = null
+role   = null
+salary = 0.0
+
+because the constructor didn't assign anything.
+
+Step 3: Set Employee Name
+e1.setEname("Deepika");
+
+Setter executes
+
+this.ename = "Deepika";
+
+Object becomes
+
+ename  = Deepika
+role   = null
+salary = 0.0
+Step 4: Set Role
+e1.setRole("Cloud Engineer");
+
+Object becomes
+
+ename  = Deepika
+role   = Cloud Engineer
+salary = 0.0
+Step 5: Set Salary
+e1.setSalary(500000);
+
+If validation passes
+
+salary > 0
+
+then
+
+this.salary = salary;
+
+Object becomes
+
+ename  = Deepika
+role   = Cloud Engineer
+salary = 500000
+Step 6: Create e2
+FullyEncapsulation1 e2 =
+new FullyEncapsulation1(
+    "Likitha",
+    "Cloud Engineer",
+    600000);
+
+Memory allocated
+
+ename  = null
+role   = null
+salary = 0.0
+
+Then parameterized constructor executes.
+
+If your constructor is
+
+public FullyEncapsulation1(String ename,
+                           String role,
+                           double salary) {
+
+    setEname(ename);
+    setRole(role);
+    setSalary(salary);
+}
+
+Execution order is
+
+setEname("Likitha")
+↓
+
+setRole("Cloud Engineer")
+↓
+
+setSalary(600000)
+
+Final object
+
+ename  = Likitha
+role   = Cloud Engineer
+salary = 600000
+Step 7: Print e1
+System.out.println(e1);
+
+Java internally converts this to
+
+System.out.println(e1.toString());
+
+Your overridden toString() executes.
+
+It returns
+
+FullyEncapsulation1
+[ename=Deepika,
+ role=Cloud Engineer,
+ salary=500000.0]
+
+Then println() prints that returned string.
+
+Step 8: Print e2
+System.out.println(e2);
+
+Again Java converts it to
+
+System.out.println(e2.toString());
+
+Same toString() method executes, but now it reads the data stored in the e2 object.
+
+Returns
+
+FullyEncapsulation1
+[ename=Likitha,
+ role=Cloud Engineer,
+ salary=600000.0]
+Final Output
+No Argument Constructor Called
+
+FullyEncapsulation1
+[ename=Deepika,
+ role=Cloud Engineer,
+ salary=500000.0]
+
+FullyEncapsulation1
+[ename=Likitha,
+ role=Cloud Engineer,
+ salary=600000.0]
+Complete Flow Diagram
+main()
+   │
+   │
+   ▼
+Create e1
+   │
+   ▼
+No-Argument Constructor
+   │
+   ▼
+Default values assigned
+(null,null,0.0)
+   │
+   ▼
+setEname()
+   │
+   ▼
+setRole()
+   │
+   ▼
+setSalary()
+   │
+   ▼
+e1 Ready
+   │
+   │
+   ▼
+Create e2
+   │
+   ▼
+Parameterized Constructor
+   │
+   ▼
+setEname()
+   │
+   ▼
+setRole()
+   │
+   ▼
+setSalary()
+   │
+   ▼
+e2 Ready
+   │
+   ▼
+println(e1)
+   │
+   ▼
+toString()
+   │
+   ▼
+Print Employee Details
+   │
+   ▼
+println(e2)
+   │
+   ▼
+toString()
+   │
+   ▼
+Print Employee Details
+One note about toString()
+
+Even though you have two objects (e1 and e2), there is only one toString() method in the class. When 
+you call System.out.println(e1), Java invokes that method with this referring to e1. When you call 
+System.out.println(e2), Java invokes the same method, but this time this refers to e2. That's why the 
+output reflects each object's own data even though the method implementation is shared.
+
+
+
+=========================================================================================
+
+
+1. What is Encapsulation?
+Answer
+
+Encapsulation is the process of wrapping data (variables) and methods (functions) into a single 
+unit called a class. It also restricts direct access to data by making variables private and providing 
+controlled access through public methods.
+
+
+2. What is Data Hiding?
+Answer
+
+Data Hiding is the process of preventing direct access to variables by declaring them as private. Data 
+can only be accessed through public getter and setter methods.
+
+3. Difference between Encapsulation and Data Hiding?
+Encapsulation	Data Hiding
+Wrapping variables and methods into one class.	Restricting direct access to data.
+Achieved using classes.	Achieved using the private keyword.
+Supports security and maintainability.	Protects data from unauthorized access.
+
+Interview Line:
+
+Data Hiding is one feature of Encapsulation.
+
+4. Why do we make variables private?
+Answer
+
+To:
+
+Protect data
+Prevent unauthorized modification
+Allow controlled access
+Perform validation
+Improve security
+5. What are Getter and Setter methods?
+Getter
+
+Returns the value of a private variable.
+
+Example
+
+public String getName() {
+    return name;
+}
+Setter
+
+Assigns or updates the value of a private variable.
+
+Example
+
+public void setName(String name) {
+    this.name = name;
+}
+6. Why do we use Getters and Setters?
+Answer
+
+They provide controlled access to private variables.
+
+Advantages:
+
+Validation
+Security
+Maintainability
+Flexibility
+7. What is a Fully Encapsulated Class?
+Answer
+
+A class is fully encapsulated when:
+
+All instance variables are private.
+Data is accessed through public methods.
+Validation or business rules are applied before modifying data.
+
+Example:
+
+private double salary;
+
+public void setSalary(double salary) {
+    if(salary > 0)
+        this.salary = salary;
+}
+8. Why is validation added inside setters?
+Answer
+
+To prevent invalid data from being stored.
+
+Example
+
+salary = -5000
+
+should not be accepted.
+
+Instead
+
+if(salary > 0)
+
+stores only valid values.
+
+9. Can we access private variables directly?
+Answer
+
+No.
+
+Wrong
+
+obj.salary = 50000;
+
+Correct
+
+obj.setSalary(50000);
+10. Why does System.out.println(object) call toString()?
+Answer
+
+Whenever an object is passed to println(), Java automatically calls
+
+object.toString();
+
+If we override toString(), meaningful information is printed.
+
+11. Why do we override toString()?
+Answer
+
+Default output
+
+Employee@2f92e0f4
+
+After overriding
+
+Employee[name=Bhaskar, salary=50000]
+
+It improves readability.
+
+12. What is @Override?
+Answer
+
+@Override is an annotation that tells the compiler we are overriding a parent class method.
+
+It helps catch spelling mistakes during compilation.
+
+13. Is @Override compulsory?
+Answer
+
+No.
+
+But it is highly recommended because it prevents accidental errors.
+
+14. Why does Java automatically call toString()?
+Answer
+
+Because
+
+System.out.println(object);
+
+internally becomes
+
+System.out.println(object.toString());
+15. Why does e1 and e2 use the same toString()?
+Answer
+
+Because methods belong to the class.
+
+Objects only store data.
+
+The same method executes for different objects using different object data.
+
+16. What is this keyword?
+Answer
+
+this refers to the current object.
+
+Example
+
+this.salary = salary;
+
+Left side
+
+this.salary
+
+instance variable
+
+Right side
+
+salary
+
+local variable
+
+17. Why do we write this.salary = salary?
+Answer
+
+Because both variable names are the same.
+
+this.salary
+
+refers to the instance variable.
+
+salary
+
+refers to the parameter.
+
+18. What happens if we remove @Override?
+Answer
+
+Program still works.
+
+But compiler won't check whether we are actually overriding the parent method.
+
+19. What happens if we remove super()?
+Answer
+
+If the parent class has a no-argument constructor,
+
+Java automatically inserts
+
+super();
+20. Why should constructors call setters?
+Answer
+
+Suppose setter validates salary.
+
+If constructor directly assigns
+
+this.salary = salary;
+
+validation is skipped.
+
+Better
+
+setSalary(salary);
+
+Now constructor also validates data.
+
+21. What is the default value of instance variables?
+Type	Default
+int	0
+double	0.0
+boolean	false
+char	'\u0000'
+String	null
+22. Why did salary become 0.0 after entering -10?
+Answer
+
+Setter rejected the value.
+
+Since assignment didn't happen,
+
+salary remained its default value
+
+0.0
+23. Why did the constructor accept -10 earlier?
+Answer
+
+Because constructor directly assigned
+
+this.salary = salary;
+
+Validation wasn't called.
+
+24. Which is the best way to create objects?
+
+Preferred
+
+Employee e =
+new Employee("Bhaskar","Developer",500000);
+
+because object is initialized completely.
+
+Later if values change,
+
+e.setSalary(700000);
+25. What are the advantages of Encapsulation?
+Data Security
+Data Hiding
+Controlled Access
+Validation
+Easy Maintenance
+Better Code Reusability
+Loose Coupling
+Easy Testing
+⭐ Most Important Interview Question
+Q: Explain Encapsulation with a real-time example.
+Answer
+
+Consider a Bank Account. The account balance is private, so no one can modify it directly. 
+The bank provides methods like deposit(), withdraw(), and getBalance(). These methods validate 
+transactions before updating the balance. This protects the data and allows only valid operations, 
+which is a real-world example of encapsulation.
+
+Top 10 Questions to Memorize
+What is Encapsulation?
+Difference between Encapsulation and Data Hiding.
+Why are variables private?
+What are Getters and Setters?
+What is a Fully Encapsulated Class?
+Why is validation added in setters?
+Why override toString()?
+Why use @Override?
+Why should constructors call setters?
+Explain Encapsulation using your own program.
